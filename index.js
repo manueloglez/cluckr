@@ -30,7 +30,7 @@ app.use(methodOverride((request, response) => {
 }))
 
 app.get('/', (req, res) => {
-  res.redirect('/sign_in')
+  res.redirect('/clucks')
 })
 
 app.get('/sign_in', (req, res) => {
