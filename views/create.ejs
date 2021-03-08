@@ -1,0 +1,13 @@
+<%- include('./partials/header') %> 
+
+<div class="border border-1 rounded p-4 mt-2">
+  <form action="/clucks/new" method="POST">
+    <label for="content" class="form-label">Content</label>
+    <textarea rows="3" type="text" name="content" class="form-control" id="content" placeholder="Whatchoo cluckin' 'bout?"></textarea>
+    <label for="imageUrl" class="form-label">Image Url</label>
+    <input type="text" name="imageUrl" class="form-control" id="imageUrl" placeholder="https://i.imgur.com/qM6KaEy.gifv">
+    <button type="submit" class="btn btn-outline-secondary py-3 px-5 mt-3">Cluck!</button>
+  </form>
+</div>
+
+<%- include('./partials/footer') %> 

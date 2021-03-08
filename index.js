@@ -4,6 +4,7 @@ const logger = require('morgan');
 const knex = require("./db/client");
 const methodOverride = require('method-override')
 const cookieParser = require('cookie-parser')
+const cluckRouter = require('./routes/clucks')
 
 const app = express();
 app.use(express.urlencoded({ extended: false }));
@@ -11,6 +12,7 @@ app.set('view engine', 'ejs');
 app.set('views', 'views');
 app.use(logger('dev'))
 app.use(cookieParser())
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use((request, response, next) => {
   const { username } = request.cookies
@@ -18,7 +20,8 @@ app.use((request, response, next) => {
   next()
 })
 
-app.use(express.static(path.join(__dirname, "public")));
+app.use('/clucks', cluckRouter)
+
 
 app.use(methodOverride((request, response) => {
   const method = request.body._method
