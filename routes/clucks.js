@@ -1,11 +1,12 @@
 const knex = require('../db/client')
 const router = require('express').Router()
 
-router.get('/new', (req, res) => { // The route is prepended already with /articles
+router.get('/new', (req, res) => {
   res.render('create')
 })
 
 router.get('/', (req, res) => {
+  // This function is to display the correct human friendly time
   const calculateTime = (date) =>{
     const current = new Date()
     const diff = current - date
@@ -23,6 +24,7 @@ router.get('/', (req, res) => {
       return `${num} ${text} ago`
     }
   }
+  // we pase the function calculateTime for use inside the view
   knex('clucks')
   .orderBy('created_at', 'DESC')
   .then(clucks => res.render('index', { clucks, calculateTime }))
@@ -31,6 +33,7 @@ router.get('/', (req, res) => {
 router.post('/new', (req, res) => {
   const { imageUrl, content } = req.body
   const username = req.cookies.username
+  // we check if user is logged in
   if (username) {
     knex('clucks')
     .insert({
@@ -42,6 +45,7 @@ router.post('/new', (req, res) => {
       console.table(data)
       res.redirect('/clucks')
     })
+  // if not, will be redirected to log in with error message
   } else {
     res.render('sign_in', {error: true})
   }

@@ -1,8 +1,6 @@
 const express = require('express');
 const path = require('path')
 const logger = require('morgan');
-const knex = require("./db/client");
-const methodOverride = require('method-override')
 const cookieParser = require('cookie-parser')
 const cluckRouter = require('./routes/clucks')
 
@@ -14,29 +12,26 @@ app.use(logger('dev'))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, "public")));
 
+// middleware to use the username in every view
 app.use((request, response, next) => {
   const { username } = request.cookies
   response.locals.username = username
   next()
 })
 
+// route for clucks
 app.use('/clucks', cluckRouter)
-
-app.use(methodOverride((request, response) => {
-  const method = request.body._method
-  delete request.body._method
-  return method
-}))
 
 app.get('/', (req, res) => {
   res.redirect('/clucks')
 })
 
+// error key is for displaying a message if the user is trying to cluck without logging in
 app.get('/sign_in', (req, res) => {
   res.render('sign_in', {error: false})
 })
 
-const COOKIE_MAX_AGE = 1000 * 60 * 60 * 24 * 30 // number of milliseconds in 30 days
+const COOKIE_MAX_AGE = 1000 * 60 * 60 * 24 // cookies for 1 day
 app.post('/sign_in', (req, res) => {
   const { username } = req.body
   res.cookie('username', username, { maxAge: COOKIE_MAX_AGE})
