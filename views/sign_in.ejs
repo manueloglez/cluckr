@@ -1,5 +1,7 @@
 <%- include('./partials/header') %>
-
+<% if (error) { %> 
+  <button class="btn btn-outline-danger w-100 mt-2">You need to sign in before clucking</button>
+<% } %> 
 <div class="border border-1 rounded p-4 mt-2">
   <form action="/sign_in" method="POST">
     <label for="username" class="form-label">Username</label>

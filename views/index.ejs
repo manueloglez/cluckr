@@ -4,7 +4,7 @@
   <img src="https://upload.wikimedia.org/wikipedia/commons/5/52/Brown_Leghorn_rooster_in_Australia.jpg" alt="avatar"
   height="50px" class="rounded m-2">
   <div class="d-flex flex-column">
-    <div class="fw-bold"><%= cluck.username %> - A moment ago</div>
+    <div class="fw-bold"><%= cluck.username %> - <%= calculateTime(cluck.created_at) %> </div>
     <p><%= cluck.content %></p>
     <% if (cluck.image_url) { %> 
       <img src="<%= cluck.image_url %>" alt="">

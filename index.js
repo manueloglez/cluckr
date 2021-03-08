@@ -22,7 +22,6 @@ app.use((request, response, next) => {
 
 app.use('/clucks', cluckRouter)
 
-
 app.use(methodOverride((request, response) => {
   const method = request.body._method
   delete request.body._method
@@ -34,7 +33,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/sign_in', (req, res) => {
-  res.render('sign_in')
+  res.render('sign_in', {error: false})
 })
 
 const COOKIE_MAX_AGE = 1000 * 60 * 60 * 24 * 30 // number of milliseconds in 30 days
