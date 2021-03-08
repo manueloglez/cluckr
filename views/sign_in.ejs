@@ -1,0 +1,11 @@
+<%- include('./partials/header') %>
+
+<div class="border border-1 rounded p-4 mt-2">
+  <form action="/sign_in" method="POST">
+    <label for="username" class="form-label">Username</label>
+    <input type="text" name="username" class="form-control" id="username" placeholder="e.g. Madam Weiminster">
+    <button type="submit" class="btn btn-outline-secondary py-3 px-5 mt-3">Sign In</button>
+  </form>
+</div>
+
+<%- include('./partials/footer') %>
