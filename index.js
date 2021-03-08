@@ -12,6 +12,11 @@ app.set('views', 'views');
 app.use(logger('dev'))
 app.use(cookieParser())
 
+app.use((request, response, next) => {
+  const { username } = request.cookies
+  response.locals.username = username
+  next()
+})
 
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -34,6 +39,11 @@ app.post('/sign_in', (req, res) => {
   const { username } = req.body
   res.cookie('username', username, { maxAge: COOKIE_MAX_AGE})
   res.redirect('/')
+})
+
+app.post('/sign_out', (request, response) => {
+  response.clearCookie('username')
+  response.redirect('/')
 })
 
 const PORT = 3000;
